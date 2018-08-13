@@ -3,6 +3,9 @@
 定义标准Trace日志bean：TraceBean
 使用ThreadLocal存储上下文信息，通过唯一的traceId将调用链路串起来
 
+主要思路：通过提供自定义注解@DwTrace
+添加此注解的方法通过aop的方式增强
+
 主要用来提供一种记录调用链的思路，特此记录
 
 当前版本的主要缺陷：
