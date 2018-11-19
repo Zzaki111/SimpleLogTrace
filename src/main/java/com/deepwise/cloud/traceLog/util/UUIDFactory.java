@@ -1,4 +1,6 @@
-package com.deepwise.cloud.util;
+package com.deepwise.cloud.traceLog.util;
+
+import com.deepwise.cloud.util.UtilCompare;
 
 import java.util.concurrent.atomic.AtomicInteger;
 

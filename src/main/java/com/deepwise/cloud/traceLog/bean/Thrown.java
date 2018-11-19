@@ -1,7 +1,7 @@
-package com.deepwise.cloud.bean;
+package com.deepwise.cloud.traceLog.bean;
 
 import com.alibaba.fastjson.annotation.JSONField;
-import com.deepwise.cloud.util.ExceptionUtils;
+import com.deepwise.cloud.traceLog.util.ExceptionUtils;
 
 import java.io.Serializable;
 

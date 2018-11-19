@@ -1,8 +1,9 @@
-package com.deepwise.cloud.Aspect;
+package com.deepwise.cloud.traceLog.aspect;
 
-import com.deepwise.cloud.LogManager;
-import com.deepwise.cloud.annotation.DwTrace;
-import com.deepwise.cloud.bean.TraceBean;
+
+import com.deepwise.cloud.traceLog.LogManager;
+import com.deepwise.cloud.traceLog.annotation.DwTrace;
+import com.deepwise.cloud.traceLog.bean.TraceBean;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -64,6 +65,7 @@ public class TraceAspect {
         trace.setClassName(joinPoint.getTarget().getClass().getName());
         trace.setMethodName(joinPoint.getSignature().getName());
         trace.setParamsIn(Arrays.toString(joinPoint.getArgs()));
+        trace.setMessage(trace.getClassName()+"."+trace.getMethodName());
         trace.setStartTime(System.currentTimeMillis());
         //trace.setSysCode();
         LogManager.client().startTrace(trace);
@@ -72,7 +74,7 @@ public class TraceAspect {
     }
 
 
-    public void afterReturning(JoinPoint joinPoint, Object returnValue, TraceBean trace){
+    public void afterReturning(JoinPoint joinPoint, Object returnValue, TraceBean trace) throws Exception {
         LOG.info("++++++++Aspect after method return+++++++++");
         if (returnValue != null){
             trace.setParamsOut(returnValue.toString());
@@ -81,18 +83,16 @@ public class TraceAspect {
         trace.setElapsedTime((int)(trace.getMsgTime()-trace.getStartTime()));
         trace.setSuccess(true);
         LogManager.client().finishTrace(true);
-        LogManager.client().logTrace(trace);
         System.out.println(trace.toString());
     }
 
-    public void afterThrowing(JoinPoint joinPoint,Throwable e,TraceBean trace){
+    public void afterThrowing(JoinPoint joinPoint,Throwable e,TraceBean trace) throws Exception {
         LOG.info("++++++++Aspect after method throw exception+++++++++");
         trace.setMsgTime(System.currentTimeMillis());
         trace.setElapsedTime((int)(trace.getMsgTime()-trace.getStartTime()));
         trace.setThrowable(e);
         trace.setSuccess(false);
         LogManager.client().finishTrace(false);
-        LogManager.client().logTrace(trace);
         System.out.println(trace.toString());
     }
 

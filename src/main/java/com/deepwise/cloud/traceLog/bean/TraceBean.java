@@ -1,8 +1,8 @@
-package com.deepwise.cloud.bean;
+package com.deepwise.cloud.traceLog.bean;
 
 import com.alibaba.fastjson.annotation.JSONField;
-import com.deepwise.cloud.util.RuntimeUtils;
-import com.deepwise.cloud.util.UUIDFactory;
+import com.deepwise.cloud.traceLog.util.RuntimeUtils;
+import com.deepwise.cloud.traceLog.util.UUIDFactory;
 
 import java.io.Serializable;
 
@@ -18,6 +18,8 @@ public class TraceBean implements Serializable {
     @JSONField(serialize = false)
     private TraceContextBean traceContextBean;
     //调用的机构码
+    @JSONField(name = "message")
+    private String message = "";
     @JSONField(name = "sysCode")
     private String sysCode = "";
     @JSONField(name = "hostName")
@@ -44,7 +46,7 @@ public class TraceBean implements Serializable {
     private String paramsIn;
     @JSONField(name = "paramsOut")
     private String paramsOut;
-        private boolean newFlag = true;
+    private boolean newFlag = true;
 
 
     public TraceBean(){
@@ -105,6 +107,14 @@ public class TraceBean implements Serializable {
             setClassName(context.getClassName());
             setMethodName(context.getMethodName());
         }
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
     }
 
     public String getSysCode() {

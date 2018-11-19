@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="logback.xsd">
+
+    <property name="logPath" value="/root/dwLog/log"/>
+  <!-- property name="logPath" value="D:/DeepW_Dev/AIServerConsole/log" /-->
+  <property name="patt" value="%d{yyyMMdd HH:mm:ss.SSS} [%-1thread] [%-5level] %logger.%M\\(%F:%L\\) - %msg%n" />
+  <property name="pattBlank" value="%msg%n" />
+  <logger name="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping" additivity="true" level="INFO" />
+  <appender name="fileLog" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <file>${logPath}/dwLog.log</file>
+    <encoder>
+      <pattern>${patt}</pattern>
+    </encoder>
+    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+        <!-- rollover daily -->
+        <fileNamePattern>${logPath}/dwLog%d{yyyyMMdd}_%i.log</fileNamePattern>
+        <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+            <maxFileSize>100MB</maxFileSize>
+        </timeBasedFileNamingAndTriggeringPolicy>
+    </rollingPolicy>
+
+  </appender>
+
+  <appender name="std" class="ch.qos.logback.core.ConsoleAppender">
+    <encoder>
+      <pattern>${patt}</pattern>
+    </encoder>
+  </appender>
+
+  <root level="INFO">
+      <!-- 控制台输出 -->
+      <appender-ref ref="std"/>
+  </root>
+
+</configuration>

@@ -1,8 +1,8 @@
-package com.deepwise.cloud.client;
+package com.deepwise.cloud.traceLog.client;
 
 
-import com.deepwise.cloud.bean.TraceBean;
-import com.deepwise.cloud.bean.TraceContextBean;
+import com.deepwise.cloud.traceLog.bean.TraceBean;
+import com.deepwise.cloud.traceLog.bean.TraceContextBean;
 
 /**
  * @Author: Zzaki
@@ -37,14 +37,14 @@ public abstract class LogClient {
      *
      * @param isSuccess 调用是否成功
      */
-    public abstract void finishTrace(boolean isSuccess);
+    public abstract void finishTrace(boolean isSuccess)throws Exception;
 
     /**
      * 发送一个独立的trace对象日志
      *
      * @param trace trace对象
      */
-    public abstract void logTrace(TraceBean trace);
+    public abstract void logTrace(TraceBean trace) throws Exception;
 
     /**
      * 获取当前环境中的TraceId

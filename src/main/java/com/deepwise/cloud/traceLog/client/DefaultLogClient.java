@@ -1,9 +1,9 @@
-package com.deepwise.cloud.client;
+package com.deepwise.cloud.traceLog.client;
 
 
-import com.deepwise.cloud.bean.NullTrace;
-import com.deepwise.cloud.bean.TraceBean;
-import com.deepwise.cloud.bean.TraceContextBean;
+import com.deepwise.cloud.traceLog.bean.NullTrace;
+import com.deepwise.cloud.traceLog.bean.TraceBean;
+import com.deepwise.cloud.traceLog.bean.TraceContextBean;
 
 /**
  * @Author: Zzaki

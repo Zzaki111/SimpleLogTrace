@@ -1,7 +1,8 @@
-package com.deepwise.cloud;
+package com.deepwise.cloud.traceLog;
 
-import com.deepwise.cloud.client.BasicLogClient;
-import com.deepwise.cloud.client.LogClient;
+
+import com.deepwise.cloud.traceLog.client.BasicLogClient;
+import com.deepwise.cloud.traceLog.client.LogClient;
 
 /**
  * @Author: Zzaki
@@ -23,7 +24,5 @@ public class LogManager {
         }
         return client;
     }
-
-
 
 }

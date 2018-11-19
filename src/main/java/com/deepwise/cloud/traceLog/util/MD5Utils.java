@@ -1,4 +1,4 @@
-package com.deepwise.cloud.util;
+package com.deepwise.cloud.traceLog.util;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;

@@ -1,9 +1,10 @@
-package com.deepwise.cloud.client;
+package com.deepwise.cloud.traceLog.client;
 
-import com.deepwise.cloud.LogManager;
-import com.deepwise.cloud.TraceManager;
-import com.deepwise.cloud.bean.TraceBean;
-import com.deepwise.cloud.bean.TraceContextBean;
+
+import com.deepwise.cloud.traceLog.LogManager;
+import com.deepwise.cloud.traceLog.TraceManager;
+import com.deepwise.cloud.traceLog.bean.TraceBean;
+import com.deepwise.cloud.traceLog.bean.TraceContextBean;
 
 /**
  * @Author: Zzaki
@@ -26,17 +27,17 @@ public class BasicLogClient extends LogClient {
         traceManager.startTrace(trace);
     }
 
-    public void flushTrace(boolean isSuccess) {
+    public void flushTrace(boolean isSuccess) throws Exception {
         traceManager.flushTrace(isSuccess);
     }
 
     @Override
-    public void finishTrace(boolean isSuccess) {
+    public void finishTrace(boolean isSuccess) throws Exception{
         traceManager.finishTrace(isSuccess);
     }
 
     @Override
-    public void logTrace(TraceBean trace) {
+    public void logTrace(TraceBean trace) throws Exception {
         traceManager.logTrace(trace);
     }
 

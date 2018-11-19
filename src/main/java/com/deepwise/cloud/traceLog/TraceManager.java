@@ -1,12 +1,16 @@
-package com.deepwise.cloud;
+package com.deepwise.cloud.traceLog;
 
-import com.deepwise.cloud.bean.NullTrace;
-import com.deepwise.cloud.bean.TraceBean;
-import com.deepwise.cloud.bean.TraceContextBean;
+
+import com.deepwise.cloud.traceLog.bean.NullTrace;
+import com.deepwise.cloud.traceLog.bean.TraceBean;
+import com.deepwise.cloud.traceLog.bean.TraceContextBean;
+import com.deepwise.cloud.traceLog.tablecache.TraceTableCache;
 import com.deepwise.cloud.util.UtilCompare;
 import com.deepwise.cloud.util.UtilLogger;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
 import java.util.Stack;
 
@@ -16,9 +20,12 @@ import java.util.Stack;
  * @Date: Created on 2018/8/8
  * @Company: DeepWise
  */
+@Component
 public class TraceManager  {
 
     private static Logger LOG = LoggerFactory.getLogger(TraceManager.class);
+
+    private TraceTableCache tableCache = new TraceTableCache(60*1000L);
 
     /**
      * 调用链栈
@@ -34,6 +41,13 @@ public class TraceManager  {
      * NullTrace对象缓存
      */
     private volatile static ThreadLocal<NullTrace> nullTraceThreadLocal = new ThreadLocal<>();
+
+    private static String graylogGelfUrl;
+
+    @Value("${graylog.gelf.http.url}")
+    public void setGraylogGelfUrl(String url){
+        graylogGelfUrl = url;
+    }
 
     private void pushTrace(TraceBean trace){
         if (traceStackThreadLocal.get() == null){
@@ -77,7 +91,7 @@ public class TraceManager  {
      *
      * @param isSuccess 是否调用成功
      */
-    public void finishTrace(boolean isSuccess){
+    public void finishTrace(boolean isSuccess) throws Exception {
         TraceBean trace = peekTrace();
         if(trace != null){
             flushTrace(isSuccess);
@@ -89,7 +103,7 @@ public class TraceManager  {
      *
      * @param isSuccess 是否调用成功
      */
-    public void flushTrace(boolean isSuccess){
+    public void flushTrace(boolean isSuccess) throws Exception {
 
         TraceBean trace = popTrace();
         if (trace == null){
@@ -106,7 +120,7 @@ public class TraceManager  {
      *
      * @param trace trace对象
      */
-    public void logTrace(TraceBean trace) {
+    public void logTrace(TraceBean trace) throws Exception {
         trace.setSuccess(true);
         sendTrace(trace);
     }
@@ -274,8 +288,9 @@ public class TraceManager  {
     /**
      * 发送trace信息
      */
-    private void sendTrace(TraceBean trace){
+    private void sendTrace(TraceBean trace) throws Exception {
         // TODO 确定链路日志存储方式，将链路日志存储
+        tableCache.put(trace.getTraceId(),trace.getId(),trace);
     }
 
 }

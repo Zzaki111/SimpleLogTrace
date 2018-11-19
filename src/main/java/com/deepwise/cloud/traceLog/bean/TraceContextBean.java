@@ -1,4 +1,4 @@
-package com.deepwise.cloud.bean;
+package com.deepwise.cloud.traceLog.bean;
 
 import com.alibaba.fastjson.annotation.JSONField;
 

@@ -51,6 +51,20 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-jdbc</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.alibaba.boot</groupId>
+            <artifactId>dubbo-spring-boot-starter</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.apache.curator</groupId>
+                    <artifactId>curator-framework</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
     </dependencies>
 
 </project>
